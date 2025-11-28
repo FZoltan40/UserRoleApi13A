@@ -140,5 +140,21 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserRoleAPi.Controllers.UserController",
+    "Method": "GetUserWithRoles",
+    "RelativePath": "api/User/userWithRoles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
   }
 ]
