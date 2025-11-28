@@ -63,6 +63,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "UserRoleAPi.Controllers.RoleUserController",
+    "Method": "AddNewRoleToUser",
+    "RelativePath": "api/RoleUser",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roleUser",
+        "Type": "UserRoleAPi.Models.Dtos.AddNewSwitchDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UserRoleAPi.Controllers.UserController",
     "Method": "AddNewUser",
     "RelativePath": "api/User",

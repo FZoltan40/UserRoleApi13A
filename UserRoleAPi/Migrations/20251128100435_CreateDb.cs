@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace UserRoleAPi.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateDbWithTables : Migration
+    public partial class CreateDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -43,24 +43,24 @@ namespace UserRoleAPi.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "RoleUser",
+                name: "roleusers",
                 columns: table => new
                 {
-                    RolesId = table.Column<Guid>(type: "char(36)", nullable: false),
-                    UsersId = table.Column<Guid>(type: "char(36)", nullable: false)
+                    UserId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    RoleId = table.Column<Guid>(type: "char(36)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RoleUser", x => new { x.RolesId, x.UsersId });
+                    table.PrimaryKey("PK_roleusers", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
-                        name: "FK_RoleUser_roles_RolesId",
-                        column: x => x.RolesId,
+                        name: "FK_roleusers_roles_RoleId",
+                        column: x => x.RoleId,
                         principalTable: "roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RoleUser_users_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_roleusers_users_UserId",
+                        column: x => x.UserId,
                         principalTable: "users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -68,16 +68,16 @@ namespace UserRoleAPi.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RoleUser_UsersId",
-                table: "RoleUser",
-                column: "UsersId");
+                name: "IX_roleusers_RoleId",
+                table: "roleusers",
+                column: "RoleId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "RoleUser");
+                name: "roleusers");
 
             migrationBuilder.DropTable(
                 name: "roles");

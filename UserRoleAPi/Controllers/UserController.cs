@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using UserRoleAPi.Models;
 using UserRoleAPi.Models.Dtos;
 
@@ -33,10 +34,15 @@ namespace UserRoleAPi.Controllers
                 {
                     await _context.users.AddAsync(user);
                     await _context.SaveChangesAsync();
+
+                    _context.SaveChanges();
                     return StatusCode(201, new { message = "Sikeres hozzáadás", result = user });
                 }
 
+
                 return StatusCode(404, new { message = "Sikertelen hozzáadás", result = user });
+
+               
             }
             catch (Exception ex)
             {

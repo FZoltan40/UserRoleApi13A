@@ -105,6 +105,37 @@
         }
       }
     },
+    "/api/RoleUser": {
+      "post": {
+        "tags": [
+          "RoleUser"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddNewSwitchDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddNewSwitchDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddNewSwitchDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/User": {
       "post": {
         "tags": [
@@ -208,6 +239,20 @@
   },
   "components": {
     "schemas": {
+      "AddNewSwitchDto": {
+        "type": "object",
+        "properties": {
+          "usersId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "rolesId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
       "AddRoleDto": {
         "type": "object",
         "properties": {
