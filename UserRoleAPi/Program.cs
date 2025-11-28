@@ -1,4 +1,6 @@
 
+using UserRoleAPi.Models;
+
 namespace UserRoleAPi
 {
     public class Program
@@ -6,6 +8,8 @@ namespace UserRoleAPi
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<UserRoleDbContext>();
 
             // Add services to the container.
 
