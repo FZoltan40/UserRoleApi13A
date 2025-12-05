@@ -140,5 +140,28 @@ namespace UserRoleAPi.Controllers
                 return StatusCode(400, new { message = ex.Message, result = "" });
             }
         }
+
+        [HttpGet("userWithMostRoles")]
+        public async Task<ActionResult> GetUserWithMostRoles()
+        {
+            try
+            {
+                var mostroles = await _context.users
+                    .Select(usr => new { usr.Name, Count = usr.RoleUsers.Count() })
+                    .OrderByDescending(u => u.Count)
+                    .FirstOrDefaultAsync();
+
+                if (mostroles != null)
+                {
+                    return StatusCode(200, new { message = "Sikeres lekérdezés", result = mostroles });
+                }
+
+                return StatusCode(404, new { message = "Sikertelen lekérdezés", result = "" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new { message = ex.Message, result = "" });
+            }
+        }
     }
 }

@@ -185,6 +185,16 @@
   },
   {
     "ContainingType": "UserRoleAPi.Controllers.UserController",
+    "Method": "GetUserWithMostRoles",
+    "RelativePath": "api/User/userWithMostRoles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserRoleAPi.Controllers.UserController",
     "Method": "GetUserWithRoles",
     "RelativePath": "api/User/userWithRoles",
     "HttpMethod": "GET",
