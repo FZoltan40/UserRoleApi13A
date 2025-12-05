@@ -21,17 +21,25 @@ namespace UserRoleAPi.Controllers
         {
             try
             {
+
                 var role = new Role
                 {
                     Id = Guid.NewGuid(),
                     RoleName = addRoleDto.RoleName
                 };
 
-                if (role != null)
+                var exist = await _context.roles
+                    .AnyAsync(ro => ro.RoleName == role.RoleName);
+
+                if (!exist)
                 {
-                    await _context.roles.AddAsync(role);
-                    await _context.SaveChangesAsync();
-                    return StatusCode(201, new { message = "Sikeres hozzáadás", result = role });
+
+                    if (role != null)
+                    {
+                        await _context.roles.AddAsync(role);
+                        await _context.SaveChangesAsync();
+                        return StatusCode(201, new { message = "Sikeres hozzáadás", result = role });
+                    }
                 }
 
                 return StatusCode(404, new { message = "Sikertelen hozzáadás", result = role });
@@ -118,6 +126,33 @@ namespace UserRoleAPi.Controllers
                 }
 
                 return StatusCode(404, new { message = "nincs ily Id", result = rolewithUsers });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new { message = ex.Message, result = "" });
+            }
+        }
+
+        [HttpGet("countOfUsers")]
+        public async Task<ActionResult> GetCountOfUsers()
+        {
+            try
+            {
+
+                var countOfUsers = await _context.roles
+                    .Select(r => new { r.RoleName, Count = r.RoleUsers.Count() })
+                    .ToListAsync();
+
+                if (countOfUsers != null)
+                {
+                    return StatusCode(200, new { message = "Sikeres lekérdezés", result = countOfUsers });
+                }
+
+                return StatusCode(400, new { message = "Sikertelen lekérdezés", result = countOfUsers });
+
+
+
+
             }
             catch (Exception ex)
             {

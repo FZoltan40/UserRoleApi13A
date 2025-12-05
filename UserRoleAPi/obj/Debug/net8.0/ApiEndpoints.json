@@ -64,6 +64,16 @@
   },
   {
     "ContainingType": "UserRoleAPi.Controllers.RoleController",
+    "Method": "GetCountOfUsers",
+    "RelativePath": "api/Role/countOfUsers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserRoleAPi.Controllers.RoleController",
     "Method": "GetRoleWithUsers",
     "RelativePath": "api/Role/roleWithUsers",
     "HttpMethod": "GET",
