@@ -163,5 +163,31 @@ namespace UserRoleAPi.Controllers
                 return StatusCode(400, new { message = ex.Message, result = "" });
             }
         }
+
+        [HttpGet("userRolesWithEmail")]
+        public async Task<ActionResult> GetuserRolesWithEmail(string email)
+        {
+            try
+            {
+                var rolesviaemail = await _context.users
+                    .Where(usr => usr.Email == email)
+                    .Include(usr => usr.RoleUsers)
+                    .ThenInclude(ro => ro.Role)
+                    .Select(u => new { u.Email, Roles = u.RoleUsers.Select(ro => ro.Role.RoleName) })
+                    .ToListAsync();
+
+
+                if (rolesviaemail != null)
+                {
+                    return StatusCode(200, new { message = "Sikeres lekérdezés", result = rolesviaemail });
+                }
+
+                return StatusCode(404, new { message = "Sikertelen lekérdezés", result = "" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new { message = ex.Message, result = "" });
+            }
+        }
     }
 }

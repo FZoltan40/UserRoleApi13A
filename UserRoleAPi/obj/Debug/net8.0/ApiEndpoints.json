@@ -185,6 +185,22 @@
   },
   {
     "ContainingType": "UserRoleAPi.Controllers.UserController",
+    "Method": "GetuserRolesWithEmail",
+    "RelativePath": "api/User/userRolesWithEmail",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserRoleAPi.Controllers.UserController",
     "Method": "GetUserWithMostRoles",
     "RelativePath": "api/User/userWithMostRoles",
     "HttpMethod": "GET",
