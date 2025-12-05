@@ -47,5 +47,36 @@ namespace UserRoleAPi.Controllers
             }
 
         }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteUseRoles(Guid userid)
+        {
+
+            try
+            {
+                var deltedUserRoles = await _context.roleusers
+                    .Where(ru => ru.UserId == userid)
+                    .ToListAsync();
+
+                if (deltedUserRoles != null)
+                {
+                    foreach (var i in deltedUserRoles)
+                    {
+                        _context.roleusers.Remove(i);
+                    }
+
+                    await _context.SaveChangesAsync();
+
+                    return Ok(new { message = "Sikeres törlés.", result = deltedUserRoles });
+                }
+
+                return NotFound(new { message = "nincs ilyn id.", result = deltedUserRoles });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new { message = ex.Message, result = "" });
+            }
+        }
+
     }
 }

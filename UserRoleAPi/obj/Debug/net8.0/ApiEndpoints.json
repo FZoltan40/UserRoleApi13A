@@ -95,6 +95,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "UserRoleAPi.Controllers.RoleUserController",
+    "Method": "DeleteUseRoles",
+    "RelativePath": "api/RoleUser",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userid",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UserRoleAPi.Controllers.UserController",
     "Method": "AddNewUser",
     "RelativePath": "api/User",
