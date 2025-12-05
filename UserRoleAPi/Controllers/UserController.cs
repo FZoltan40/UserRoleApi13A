@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using UserRoleAPi.Models;
@@ -30,7 +29,7 @@ namespace UserRoleAPi.Controllers
                     Password = addUserDto.Password
                 };
 
-                if(user != null)
+                if (user != null)
                 {
                     await _context.users.AddAsync(user);
                     await _context.SaveChangesAsync();
@@ -42,7 +41,7 @@ namespace UserRoleAPi.Controllers
 
                 return StatusCode(404, new { message = "Sikertelen hozzáadás", result = user });
 
-               
+
             }
             catch (Exception ex)
             {
@@ -69,8 +68,8 @@ namespace UserRoleAPi.Controllers
         {
             try
             {
-                var user = _context.users.FirstOrDefault(x=>x.Id == id);
-                if(user!= null)
+                var user = _context.users.FirstOrDefault(x => x.Id == id);
+                if (user != null)
                 {
                     _context.Remove(user);
                     await _context.SaveChangesAsync();
@@ -92,7 +91,7 @@ namespace UserRoleAPi.Controllers
             {
                 var user = await _context.users.FirstOrDefaultAsync(x => x.Id == id);
 
-                if( user!=null)
+                if (user != null)
                 {
                     user.Name = updateUserDto.Name;
                     user.Email = updateUserDto.Email;
@@ -121,7 +120,19 @@ namespace UserRoleAPi.Controllers
                 .ThenInclude(ru => ru.Role)
                 .FirstOrDefaultAsync(u => u.Id == id);
 
-                return StatusCode(200, new { message = "Sikeres lekérdezés", result = userWithRoles });
+
+                if (userWithRoles != null)
+                {
+                    var userResult = new
+                    {
+                        UserName = userWithRoles.Name,
+                        Roles = userWithRoles.RoleUsers.Select(x => x.Role.RoleName)
+                    };
+                    return StatusCode(200, new { message = "Sikeres lekérdezés", result = userResult });
+                }
+
+                return StatusCode(404, new { message = "Sikertelen lekérdezés", result = "" });
+
             }
             catch (Exception ex)
             {

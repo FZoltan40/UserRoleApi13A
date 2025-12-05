@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using UserRoleAPi.Models;
 using UserRoleAPi.Models.Dtos;
 
@@ -11,8 +11,8 @@ namespace UserRoleAPi.Controllers
     public class RoleController : ControllerBase
     {
         private readonly UserRoleDbContext _context;
-        public RoleController(UserRoleDbContext context) 
-        { 
+        public RoleController(UserRoleDbContext context)
+        {
             _context = context;
         }
 
@@ -94,6 +94,30 @@ namespace UserRoleAPi.Controllers
                 }
 
                 return StatusCode(404, new { message = "nincs ily Id", result = role });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new { message = ex.Message, result = "" });
+            }
+        }
+
+        [HttpGet("roleWithUsers")]
+        public async Task<ActionResult> GetRoleWithUsers(Guid id)
+        {
+            try
+            {
+                var rolewithUsers = await _context.roleusers
+                    .Where(ru => ru.RoleId == id)
+                    .Include(ru => ru.User)
+                    .Select(ru => new { Role = ru.Role.RoleName, UserNames = ru.User.Name })
+                    .ToListAsync();
+
+                if (rolewithUsers != null)
+                {
+                    return StatusCode(200, new { message = "Sikeres lekérdezés", result = rolewithUsers });
+                }
+
+                return StatusCode(404, new { message = "nincs ily Id", result = rolewithUsers });
             }
             catch (Exception ex)
             {

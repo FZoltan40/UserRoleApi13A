@@ -63,6 +63,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "UserRoleAPi.Controllers.RoleController",
+    "Method": "GetRoleWithUsers",
+    "RelativePath": "api/Role/roleWithUsers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UserRoleAPi.Controllers.RoleUserController",
     "Method": "AddNewRoleToUser",
     "RelativePath": "api/RoleUser",
