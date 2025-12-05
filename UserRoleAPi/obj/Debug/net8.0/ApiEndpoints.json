@@ -121,6 +121,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "UserRoleAPi.Controllers.RoleUserController",
+    "Method": "AddNewRolestoUser",
+    "RelativePath": "api/RoleUser/addRolestouser",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userid",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "roleids",
+        "Type": "System.Collections.Generic.List\u00601[[System.Guid, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UserRoleAPi.Controllers.UserController",
     "Method": "AddNewUser",
     "RelativePath": "api/User",

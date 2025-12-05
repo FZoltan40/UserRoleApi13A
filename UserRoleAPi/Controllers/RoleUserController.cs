@@ -78,5 +78,45 @@ namespace UserRoleAPi.Controllers
             }
         }
 
+        [HttpPost("addRolestouser")]
+        public async Task<ActionResult> AddNewRolestoUser(Guid userid, List<Guid> roleids)
+        {
+            try
+            {
+                if (roleids == null || roleids.Count == 0)
+                    return BadRequest(new { message = "Nem adtál meg szerepkör ID-ket.", result = "" });
+
+                var userExists = await _context.users.AnyAsync(u => u.Id == userid);
+                if (!userExists)
+                    return NotFound(new { message = "A felhasználó nem létezik.", result = "" });
+
+
+                var existingRoles = await _context.roleusers
+                    .Where(ru => ru.UserId == userid)
+                    .Select(ru => ru.RoleId)
+                    .ToListAsync();
+
+
+                var newroles = roleids
+                    .Where(id => !existingRoles.Contains(id))
+                    .Select(id => new RoleUser { UserId = userid, RoleId = id })
+                    .ToList();
+
+
+                if (newroles.Count == 0)
+                    return BadRequest(new { message = "Nincs új szerepkör, amit hozzá lehetne adni.", result = "" });
+
+
+                await _context.roleusers.AddRangeAsync(newroles);
+                await _context.SaveChangesAsync();
+
+                return StatusCode(201, new { message = "Sikeres hozzáadás.", result = newroles });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new { message = ex.Message, result = "" });
+            }
+        }
+
     }
 }
